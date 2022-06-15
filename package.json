@@ -70,7 +70,7 @@
     "webpack-dev-server": "^4.9.2"
   },
   "dependencies": {
-    "@elexpr/serializejs": "^1.0.5",
+    "@elexpr/serializejs": "^1.1.2",
     "bem-cn": "^3.0.1",
     "normalize.css": "^8.0.1",
     "react": "^18.1.0",

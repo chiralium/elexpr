@@ -1,0 +1,19 @@
+@import "~src/styles/colors.less";
+
+.header {
+  position: fixed;
+  width: 100%;
+  height: 38px;
+  background-color: var(--secondary-color);
+  display: grid;
+  grid-template-columns: 1fr;
+  padding-left: 2px;
+
+  &__theme-switcher {
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+}

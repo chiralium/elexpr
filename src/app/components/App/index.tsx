@@ -1,8 +1,11 @@
 import React from 'react';
 import { List } from 'app/pages/home/components/List';
+import { Header } from 'app/components/Header';
+import { Container } from 'app/components/Container';
 
 export const App = () => {
-    return <>
+    return <Container>
+        <Header/>
         <List/>
-    </>
+    </Container>
 }

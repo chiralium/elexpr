@@ -1,7 +1,8 @@
-import './main.less';
+import '../styles/main.less';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { App } from 'app/components/App';
 
 (() => {
     const root = document.querySelector('#root');
@@ -13,6 +14,6 @@ import { createRoot } from 'react-dom/client';
     const reactRoot = createRoot(root);
 
     reactRoot.render(
-        <div>Hello world!!!</div>
+        <App/>
     );
-})()
+})();

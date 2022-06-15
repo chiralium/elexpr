@@ -106,6 +106,6 @@ export class GithubEvent extends SerializeModel implements IGithubEvent {
     }
 
     public get formatDate () {
-        return this.createdAt.split('T').join(', ')
+        return this.createdAt.split('T')[0]
     }
 }

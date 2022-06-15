@@ -1,13 +1,10 @@
 import { TRootState } from 'app/store';
-import { TGithubState, GITHUB_REDUCER } from 'app/modules/github/reducers';
+import { TGithubState } from 'app/modules/github/reducers';
 import { GithubEvent } from 'app/modules/github/models';
+import { GITHUB_MODULE } from 'app/modules/github/actions';
 
 const selectModule = (state: TRootState): TGithubState => {
-    return state[GITHUB_REDUCER];
-}
-
-export const selectIsLoading = (state: TRootState): boolean => {
-    return selectModule(state).loading;
+    return state[GITHUB_MODULE];
 }
 
 export const selectGithubEventList = (state: TRootState): GithubEvent[] => {

@@ -7,9 +7,10 @@ import { ThunkDispatch } from 'redux-thunk';
 import { TRootState } from 'app/store';
 import { GithubService } from 'app/modules/github/services';
 import { TAction } from 'src/types';
-import { getGithubEventList } from 'app/modules/github/actions';
+import { getGithubEventList, GITHUB_MODULE } from 'app/modules/github/actions';
 import { selectPushEventList } from 'app/modules/github/selectors';
 import { GithubEvent } from 'app/modules/github/models';
+import { RequestWrapper } from 'app/modules/request/components/RequestWrapper';
 
 const b = block('last-commit');
 
@@ -26,6 +27,10 @@ export const LastCommit = () => {
     }, [githubEventList]);
 
     return <div className={b()}>
-        Last push {lastPush?.formatDate}
+        <RequestWrapper name={GITHUB_MODULE}>
+            <div className={b('content')}>
+                Last push {lastPush?.formatDate}
+            </div>
+        </RequestWrapper>
     </div>
 }

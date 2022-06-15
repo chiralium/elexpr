@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": [
+      "dom"
+    ],
+    "strict": true,
+    "baseUrl": "./src",
+    "paths": {
+      "app/*": [
+        "./app/*"
+      ],
+      "src/*": [
+        "./*"
+      ]
+    },
+    "typeRoots": [
+      "node_modules/@types",
+      "types"
+    ],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react"
+  }
+}

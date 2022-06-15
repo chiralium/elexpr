@@ -72,6 +72,7 @@
   "dependencies": {
     "@elexpr/serializejs": "^1.0.5",
     "bem-cn": "^3.0.1",
+    "normalize.css": "^8.0.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.2",

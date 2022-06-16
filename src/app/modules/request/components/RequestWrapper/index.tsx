@@ -7,9 +7,10 @@ import { setError } from 'app/modules/request/actions';
 type TProps = {
     children: ReactNode;
     name: keyof TRootState;
+    preloader: ReactNode;
 }
 
-export const RequestWrapper: React.FC<TProps> = ({ children, name }) => {
+export const RequestWrapper: React.FC<TProps> = ({ children, name, preloader }) => {
     const dispatch = useDispatch();
 
     const isLoading = useSelector<TRootState, boolean>(
@@ -36,6 +37,6 @@ export const RequestWrapper: React.FC<TProps> = ({ children, name }) => {
     }, [error]);
 
     return <>
-        {isLoading ? <div>Loading...</div> : children}
+        {isLoading ? preloader : children}
     </>
 };

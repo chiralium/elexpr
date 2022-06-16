@@ -11,6 +11,7 @@ import { getGithubEventList, GITHUB_MODULE } from 'app/modules/github/actions';
 import { selectPushEventList } from 'app/modules/github/selectors';
 import { GithubEvent } from 'app/modules/github/models';
 import { RequestWrapper } from 'app/modules/request/components/RequestWrapper';
+import { UnicodePreloader } from 'app/components/UnicodePreloader';
 
 const b = block('last-commit');
 
@@ -27,7 +28,7 @@ export const LastCommit = () => {
     }, [githubEventList]);
 
     return <div className={b()}>
-        <RequestWrapper name={GITHUB_MODULE}>
+        <RequestWrapper name={GITHUB_MODULE} preloader={<UnicodePreloader/>}>
             <div className={b('content')}>
                 Last push {lastPush?.formatDate}
             </div>

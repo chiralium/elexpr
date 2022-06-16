@@ -1,0 +1,28 @@
+.logger {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 20px;
+  gap: 12px;
+  color: lightgreen;
+  background-color: black;
+  padding: 4px;
+
+  &_no-action {
+    grid-template-columns: 20px;
+  }
+
+  &__pre {
+    margin: 0;
+    font-family: 'Courier', sans-serif;
+  }
+
+  &__flex-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+}

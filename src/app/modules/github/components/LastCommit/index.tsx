@@ -30,7 +30,7 @@ export const LastCommit = () => {
     return <div className={b()}>
         <RequestWrapper name={GITHUB_MODULE} preloader={<UnicodePreloader/>}>
             <div className={b('content')}>
-                Last push {lastPush?.formatDate}
+                Last push on {lastPush?.formatDate} 🕙
             </div>
         </RequestWrapper>
     </div>

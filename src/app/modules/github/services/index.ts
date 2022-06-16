@@ -8,7 +8,7 @@ export class GithubService extends BaseApi {
     }
 
     public getEventList = async (userName: string): Promise<GithubEvent[]> => {
-        const response = await this.getRequest(`users/${userName}/events`);
+        const response = await this.getRequest(`users/${userName}/events?per_page=100`);
         return new Serialize<GithubEvent, GithubEvent[], IGithubEvent>({
             data: response,
             instanceConstructor: GithubEvent

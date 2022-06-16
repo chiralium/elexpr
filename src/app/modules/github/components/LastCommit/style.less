@@ -10,21 +10,52 @@
     font-weight: bold;
     font-size: 12px;
 
-    &::before {
-      position: absolute;
-      content: '';
-      background-color: @color_commit_circle;
-      width: 6px;
-      height: 6px;
-      border-radius: 100%;
-      left: -12px;
-      top: 3px;
-    }
-
     &:hover {
       &:before {
         opacity: .7;
       }
     }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 300px;
+  }
+
+  &__list-item {
+    a {
+      color: var(--super-light-color);
+      text-decoration: none;
+    }
+  }
+
+  &__list-item + &__list-item {
+    margin-top: 12px;
+  }
+
+  &__commit {
+    font-weight: bold;
+  }
+
+  &__repo {
+    color: white;
+  }
+
+  &__github-link {
+    margin-top: 24px;
+    text-align: right;
+    text-decoration: none;
+  }
+
+  &__summary {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+  }
+
+  &__total {
+    margin-left: 12px;
   }
 }

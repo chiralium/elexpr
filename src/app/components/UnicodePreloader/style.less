@@ -5,6 +5,7 @@
   height: 20px;
   display: flex;
   place-items: center;
+  transition: color 3ms ease-in-out;
 
   &::after {
     position: absolute;
@@ -16,25 +17,31 @@
 @keyframes unicode-braille-dots {
   0% {
     content: '⠋';
+    color: red;
   }
 
   25% {
     content: '⠏';
+    color: green;
   }
 
   45% {
-    content: '⠦'
+    content: '⠦';
+    color: blue;
   }
 
   65% {
-    content: '⠴'
+    content: '⠴';
+    color: magenta;
   }
 
   85% {
     content: '⠼';
+    color: cyan;
   }
 
   100% {
-    content: '⠙'
+    content: '⠙';
+    color: brown;
   }
 }

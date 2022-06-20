@@ -1,33 +1,60 @@
 import './style.less';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import block from 'bem-cn';
 import { UnicodePreloader } from 'app/components/UnicodePreloader';
-import { selectAction } from 'app/modules/logger/selector';
-import { useSelector } from 'react-redux';
+import { selectActions } from 'app/modules/logger/selector';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearActions } from 'app/modules/logger/actions';
 
 const b = block('logger');
 
 export const Logger = () => {
-    const action = useSelector(selectAction);
-    const [isClear, setIsClear] = useState(false);
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const dispatch = useDispatch();
+    const actionsList = useSelector(selectActions);
+    const [pointer, setPointer] = useState(-1);
 
     useEffect(() => {
-        if (!action) {
+        if (pointer >= actionsList.size) {
+            setPointer(-1);
+
+            if (!timerRef.current) {
+                return;
+            }
+
+            clearTimeout(timerRef.current);
+            timerRef.current = null;
+
+            dispatch(clearActions());
+        }
+    }, [pointer, actionsList]);
+
+    useEffect(() => {
+        if (!actionsList.size) {
             return;
         }
 
-        setIsClear(false);
-        setTimeout(() => {
-            setIsClear(true);
-        }, 1000);
-    }, [action]);
+        timerRef.current = setInterval(() => {
+            setPointer(prevState => prevState + 1);
+        }, 350);
 
-    return <div className={b({ 'no-action': isClear })}>
-        {!isClear &&
+        return () => {
+            if (!timerRef.current) {
+                return;
+            }
+
+            clearTimeout(timerRef.current);
+            timerRef.current = null;
+        }
+    }, [actionsList]);
+
+    return <div className={b({ 'no-action': pointer < 0 })}>
+        {pointer >= 0 &&
             <div className={b('flex-item')}>
                 <pre className={b('pre')}>
-                    {action?.type}
+                    {[...actionsList][pointer]}
                 </pre>
             </div>
         }

@@ -27,6 +27,7 @@ export const Popup = <E extends HTMLElement>({ children, targetNode, delay = 500
         }
 
         clearTimeout(timerId.current!);
+        timerId.current = null;
         setVisible(true);
     }, [delay]);
 

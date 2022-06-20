@@ -2,19 +2,29 @@ import { TAction } from 'src/types';
 import { LOGGER_ACTIONS } from 'app/modules/logger/actions';
 
 export type TLoggerState = {
-    action: TAction | null;
+    actions: Set<string>,
 }
 
 const initialState: TLoggerState = {
-    action: null
+    actions: new Set<string>()
 }
 
 export const loggerReducer = (state = initialState, action: TAction): TLoggerState => {
     switch (action.type) {
-        case LOGGER_ACTIONS.SET_ACTION: {
+        case LOGGER_ACTIONS.SET_ACTIONS: {
+            const newActionSet = new Set<string>(state.actions);
+            newActionSet.add(action.payload.type);
+
             return {
                 ...state,
-                action: action.payload
+                actions: newActionSet
+            }
+        }
+
+        case LOGGER_ACTIONS.CLEAR_ACTIONS: {
+            return {
+                ...state,
+                actions: new Set<string>()
             }
         }
 

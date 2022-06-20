@@ -1,0 +1,28 @@
+@import "~src/styles/colors";
+
+.busy-indicator {
+  &__preloader {
+    display: grid;
+    place-items: center;
+  }
+
+  &__indicator {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: .8;
+
+    &_busy {
+      color: @color_busy;
+    }
+
+    &_online {
+      color: @color_online;
+    }
+  }
+}

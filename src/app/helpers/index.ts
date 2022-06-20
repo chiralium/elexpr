@@ -58,3 +58,12 @@ export class BaseApi {
         }).then(this.isOk);
     };
 }
+
+export const getFirstAndLastMonthDays = (): [string, string] => {
+    const now = new Date();
+
+    return [
+        new Date(now.getFullYear(), now.getMonth()).toISOString(),
+        new Date(now.getFullYear(), now.getMonth() + 1).toISOString()
+    ]
+}

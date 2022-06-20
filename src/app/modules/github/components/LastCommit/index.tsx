@@ -3,10 +3,9 @@ import './style.less';
 import React, { useEffect, useMemo, useRef } from 'react';
 import block from 'bem-cn';
 import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
 import { TRootState } from 'app/store';
 import { GithubService } from 'app/modules/github/services';
-import { TAction } from 'src/types';
+import { TAsyncDispatch } from 'src/types';
 import { getGithubEventList, GITHUB_MODULE } from 'app/modules/github/actions';
 import { selectPushEventList } from 'app/modules/github/selectors';
 import { GithubEvent } from 'app/modules/github/models';
@@ -18,7 +17,7 @@ const b = block('last-commit');
 
 export const LastCommit = () => {
     const lastPushRef = useRef<HTMLDivElement>(null);
-    const dispatch = useDispatch<ThunkDispatch<TRootState, { githubService: GithubService }, TAction>>();
+    const dispatch = useDispatch<TAsyncDispatch<GithubService>>();
     const githubEventList = useSelector<TRootState, GithubEvent[]>(selectPushEventList);
 
     useEffect(() => {

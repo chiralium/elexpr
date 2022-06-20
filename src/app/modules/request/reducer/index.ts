@@ -16,6 +16,7 @@ export const requestReducer = (state = initialState, action: TAction): TRequestS
     switch (action.type) {
         case REQUEST_ACTIONS.LOADING: {
             return {
+                ...state,
                 [action.payload.moduleName]: {
                     ...state[action.payload.moduleName],
                     loading: action.payload.payload
@@ -25,6 +26,7 @@ export const requestReducer = (state = initialState, action: TAction): TRequestS
 
         case REQUEST_ACTIONS.ERROR: {
             return {
+                ...state,
                 [action.payload.moduleName]: {
                     ...state[action.payload.moduleName],
                     error: action.payload.payload

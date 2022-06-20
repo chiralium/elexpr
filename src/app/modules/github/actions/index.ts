@@ -1,8 +1,6 @@
 import { makeAction } from 'app/helpers';
-import { TAction } from 'src/types';
+import { TAction, TAsyncAction } from 'src/types';
 import { GithubEvent } from 'app/modules/github/models';
-import { ThunkAction } from 'redux-thunk';
-import { TRootState } from 'app/store';
 import { GithubService } from 'app/modules/github/services';
 import { setError, setLoading } from 'app/modules/request/actions';
 
@@ -19,7 +17,7 @@ export const setEventList = (githubEventList: GithubEvent[]): TAction<GithubEven
     };
 };
 
-export const getGithubEventList = (userName: string): ThunkAction<Promise<void>, TRootState, { githubService: GithubService }, TAction> => {
+export const getGithubEventList = (userName: string): TAsyncAction<GithubService> => {
     return async (dispatch, __, { githubService }) => {
         dispatch(setLoading({
             moduleName: GITHUB_MODULE,

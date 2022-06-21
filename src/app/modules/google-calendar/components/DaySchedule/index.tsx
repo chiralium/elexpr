@@ -15,7 +15,6 @@ type TProps = {
 
 const now = new Date();
 const dayTimeLine: TDayTimeLine = createDayTimeLine(now);
-console.log(dayTimeLine);
 
 export const DaySchedule: React.FC<TProps> = ({ date }) => {
     const busyTime = useSelector(selectBusyTimeList);
@@ -41,7 +40,7 @@ export const DaySchedule: React.FC<TProps> = ({ date }) => {
                         </div>
                     ))}
                 </div>
-                <div className={b('space')}/>
+                <div className={b('space')}>HH<sup>mm</sup></div>
                 <div className={b('minutes')}>
                     {dayTimeLine.minutesList.map(minute => (
                         <div key={`${minute}_minute`} className={b('minute')}>

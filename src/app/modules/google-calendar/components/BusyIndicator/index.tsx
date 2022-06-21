@@ -1,6 +1,6 @@
 import './style.less';
 
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { ReactNode, useEffect, useMemo, useRef } from 'react';
 import block from 'bem-cn';
 import { UnicodePreloader } from 'app/components/UnicodePreloader';
 import { GoogleCalendarServices } from 'app/modules/google-calendar/services';
@@ -33,8 +33,18 @@ export const BusyIndicator = () => {
         return isBusyTime(now, busyTimeList)
     }, [busyTimeList]);
 
-    const renderLabel = useMemo<string>(() => {
-        return isBusy ? 'busy right now' : 'currently online'
+    const renderLabel = useMemo<ReactNode>(() => {
+        return isBusy
+            ? (
+                <>🛑 busy right now 🛑</>
+            )
+            : (
+                <>
+                    <UnicodePreloader/>
+                currently online
+                    <UnicodePreloader/>
+                </>
+            )
     }, [isBusy]);
 
     return <div className={b()} ref={targetNodeRef}>
@@ -44,7 +54,7 @@ export const BusyIndicator = () => {
             </div>
         }>
             <div className={b('indicator', { busy: isBusy, online: !isBusy })}>
-                <UnicodePreloader /> {renderLabel} <UnicodePreloader />
+                {renderLabel}
             </div>
         </RequestWrapper>
         <Popup targetNode={targetNodeRef.current}>

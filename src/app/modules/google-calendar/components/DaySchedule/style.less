@@ -87,11 +87,17 @@
   }
 
   &__marker {
+    transition: all 0.3s ease-in-out;
     width: 10px;
     height: 10px;
     border-radius: 3px;
     background-color: grey;
-    box-shadow: 10px 4px 8px 0px rgba(34, 60, 80, 0.2);;
+    box-shadow: 10px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.5);
+    }
 
     &_busy {
       background-color: @color_busy;

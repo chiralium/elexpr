@@ -49,12 +49,14 @@ export const DaySchedule: React.FC<TProps> = ({ date }) => {
                         </div>
                     ))}
                 </div>
-                <div className={b('markers')}>
+                <div className={b('markers')} >
                     {dayTimeLine.fullDateList.map(date => {
-                        return <div key={date.getTime()} className={b('marker', {
-                            busy: isBusy(date, busyTime),
-                            online: !isBusy(date, busyTime)
-                        })} data-jopa={date.toISOString()}/>
+                        const isTimeBusy = isBusy(date, busyTime);
+
+                        return <div title={isTimeBusy ? 'Busy' : 'Not busy'} key={date.getTime()} className={b('marker', {
+                            busy: isTimeBusy,
+                            online: !isTimeBusy
+                        })}/>
                     })}
                 </div>
             </div>

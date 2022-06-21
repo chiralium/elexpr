@@ -1,3 +1,5 @@
+import { IGoogleCalendarBusyItem } from 'app/modules/google-calendar/models';
+
 export const makeAction = (moduleName: string, actionList: Record<string, string>): Record<string, string> => {
     const actionNameList = Object.keys(actionList);
 
@@ -79,7 +81,7 @@ export type TDayTimeLine = {
 export const createDayTimeLine = (date: Date): TDayTimeLine => {
     const dayTimeList: TDayTimeLine = {
         hoursList: Array.from({ length: 12 }, (_, i) => i + 8),
-        minutesList: Array.from({ length: 6 }, (_, i) => i + 10),
+        minutesList: Array.from({ length: 6 }, (_, i) => i * 10),
         fullDateList: []
     };
 
@@ -91,4 +93,22 @@ export const createDayTimeLine = (date: Date): TDayTimeLine => {
     }, []);
 
     return dayTimeList;
+}
+
+export const isBusyTime = (date: Date, busyTimeList: Array<IGoogleCalendarBusyItem>): boolean => {
+    const [day] = date.toISOString().split('T');
+
+    const calendarDayList = busyTimeList.filter(busyTimeItem => {
+        const [busyTimeDay] = busyTimeItem.start.split('T');
+        return busyTimeDay === day
+    });
+
+    if (!calendarDayList.length) {
+        return false;
+    }
+
+    return Boolean(calendarDayList.find(calendarDayItem => {
+        return new Date(calendarDayItem.start).getTime() <= date.getTime() &&
+            date.getTime() <= new Date(calendarDayItem.end).getTime();
+    }));
 }

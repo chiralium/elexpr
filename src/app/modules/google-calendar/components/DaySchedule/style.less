@@ -71,6 +71,7 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(6, 1fr);
+    grid-auto-flow: column;
     grid-area: markers;
     gap: 12px;
   }
@@ -90,6 +91,7 @@
     height: 10px;
     border-radius: 3px;
     background-color: grey;
+    box-shadow: 10px 4px 8px 0px rgba(34, 60, 80, 0.2);;
 
     &_busy {
       background-color: @color_busy;

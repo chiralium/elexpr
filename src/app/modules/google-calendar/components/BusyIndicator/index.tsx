@@ -9,7 +9,7 @@ import { getBusyTime, GOOGLE_CALENDAR_MODULE } from 'app/modules/google-calendar
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { TRootState } from 'app/store';
-import { getFirstAndLastMonthDays, formatDate } from 'app/helpers';
+import { getFirstAndLastMonthDays, formatDate, isBusyTime } from 'app/helpers';
 import { selectBusyTimeList } from 'app/modules/google-calendar/selectors';
 import { type IGoogleCalendarBusyItem } from 'app/modules/google-calendar/models';
 import { Popup } from 'app/components/Popup';
@@ -30,21 +30,7 @@ export const BusyIndicator = () => {
     }, []);
 
     const isBusy = useMemo<boolean>(() => {
-        const [day] = now.toISOString().split('T');
-
-        const calendarDayList = busyTimeList.filter(busyTimeItem => {
-            const [busyTimeDay] = busyTimeItem.start.split('T');
-            return busyTimeDay === day
-        });
-
-        if (!calendarDayList.length) {
-            return false;
-        }
-
-        return Boolean(calendarDayList.find(calendarDayItem => {
-            return new Date(calendarDayItem.start).getTime() <= now.getTime() &&
-                now.getTime() <= new Date(calendarDayItem.end).getTime();
-        }));
+        return isBusyTime(now, busyTimeList)
     }, [busyTimeList]);
 
     const renderLabel = useMemo<string>(() => {

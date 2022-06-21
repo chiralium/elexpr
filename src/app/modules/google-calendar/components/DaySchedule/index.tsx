@@ -1,8 +1,11 @@
 import './style.less';
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import block from 'bem-cn';
-import { createDayTimeLine, TDayTimeLine } from 'app/helpers';
+import { createDayTimeLine, TDayTimeLine, isBusyTime } from 'app/helpers';
+import { useSelector } from 'react-redux';
+import { selectBusyTimeList } from 'app/modules/google-calendar/selectors';
+import { IGoogleCalendarBusyItem } from 'app/modules/google-calendar/models';
 
 const b = block('day-schedule');
 
@@ -10,10 +13,17 @@ type TProps = {
     date: string;
 }
 
-const dayTimeLine: TDayTimeLine = createDayTimeLine(new Date());
+const now = new Date();
+const dayTimeLine: TDayTimeLine = createDayTimeLine(now);
 console.log(dayTimeLine);
 
 export const DaySchedule: React.FC<TProps> = ({ date }) => {
+    const busyTime = useSelector(selectBusyTimeList);
+
+    const isBusy = useCallback((date: Date, busyTime: IGoogleCalendarBusyItem[]) => {
+        return isBusyTime(date, busyTime);
+    }, [busyTime]);
+
     return <div className={b()}>
         <div className={b('controls')}>
             <button className={b('control', { prev: true })}>◀</button>
@@ -40,9 +50,12 @@ export const DaySchedule: React.FC<TProps> = ({ date }) => {
                     ))}
                 </div>
                 <div className={b('markers')}>
-                    {Array.from({ length: 6 * 12 }, (_, i) => i).map(i => (
-                        <div key={i} className={b('marker')}/>
-                    ))}
+                    {dayTimeLine.fullDateList.map(date => {
+                        return <div key={date.getTime()} className={b('marker', {
+                            busy: isBusy(date, busyTime),
+                            online: !isBusy(date, busyTime)
+                        })} data-jopa={date.toISOString()}/>
+                    })}
                 </div>
             </div>
         </div>

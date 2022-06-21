@@ -1,6 +1,6 @@
 import './style.less';
 
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import block from 'bem-cn';
 import { UnicodePreloader } from 'app/components/UnicodePreloader';
 import { GoogleCalendarServices } from 'app/modules/google-calendar/services';
@@ -9,13 +9,17 @@ import { getBusyTime, GOOGLE_CALENDAR_MODULE } from 'app/modules/google-calendar
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { TRootState } from 'app/store';
-import { getFirstAndLastMonthDays } from 'app/helpers';
+import { getFirstAndLastMonthDays, formatDate } from 'app/helpers';
 import { selectBusyTimeList } from 'app/modules/google-calendar/selectors';
 import { type IGoogleCalendarBusyItem } from 'app/modules/google-calendar/models';
+import { Popup } from 'app/components/Popup';
+import { DaySchedule } from 'app/modules/google-calendar/components/DaySchedule';
 
 const b = block('busy-indicator');
+const now = new Date();
 
 export const BusyIndicator = () => {
+    const targetNodeRef = useRef<HTMLDivElement>(null);
     const dispatch = useDispatch<ThunkDispatch<TRootState, { googleServices: GoogleCalendarServices }, any>>();
     const busyTimeList = useSelector<TRootState, Array<IGoogleCalendarBusyItem>>(selectBusyTimeList);
 
@@ -26,9 +30,6 @@ export const BusyIndicator = () => {
     }, []);
 
     const isBusy = useMemo<boolean>(() => {
-        // const _mocked = '2022-06-22T10:12:00+03:00'
-
-        const now = new Date();
         const [day] = now.toISOString().split('T');
 
         const calendarDayList = busyTimeList.filter(busyTimeItem => {
@@ -50,7 +51,7 @@ export const BusyIndicator = () => {
         return isBusy ? 'busy right now' : 'currently online'
     }, [isBusy]);
 
-    return <div className={b()}>
+    return <div className={b()} ref={targetNodeRef}>
         <RequestWrapper name={GOOGLE_CALENDAR_MODULE} preloader={
             <div className={b('preloader')}>
                 <UnicodePreloader/>
@@ -60,5 +61,8 @@ export const BusyIndicator = () => {
                 <UnicodePreloader /> {renderLabel} <UnicodePreloader />
             </div>
         </RequestWrapper>
+        <Popup targetNode={targetNodeRef.current}>
+            <DaySchedule date={formatDate(now.toISOString())}/>
+        </Popup>
     </div>
 }

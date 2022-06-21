@@ -67,3 +67,28 @@ export const getFirstAndLastMonthDays = (): [string, string] => {
         new Date(now.getFullYear(), now.getMonth() + 1).toISOString()
     ]
 }
+
+export const formatDate = (date: string): string => date.split('T')[0];
+
+export type TDayTimeLine = {
+    hoursList: number[],
+    minutesList: number[],
+    fullDateList: Date[];
+};
+
+export const createDayTimeLine = (date: Date): TDayTimeLine => {
+    const dayTimeList: TDayTimeLine = {
+        hoursList: Array.from({ length: 12 }, (_, i) => i + 8),
+        minutesList: Array.from({ length: 6 }, (_, i) => i + 10),
+        fullDateList: []
+    };
+
+    dayTimeList.fullDateList = dayTimeList.hoursList.reduce((acc: Date[], hour) => {
+        return [
+            ...acc,
+            ...dayTimeList.minutesList.map(minute => new Date(date.setHours(hour, minute, 0)))
+        ]
+    }, []);
+
+    return dayTimeList;
+}

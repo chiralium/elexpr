@@ -1,0 +1,102 @@
+@import "~src/styles/colors.less";
+
+.day-schedule {
+  &__title {
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  &__controls {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+  }
+
+  &__control {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    color: var(--font-color);
+    font-size: 12px;
+    height: 10px;
+
+    &_next {
+      margin-left: 12px;
+    }
+
+    &_prev {
+      margin-right: 12px;
+    }
+  }
+
+  &__content {
+    margin-top: 24px;
+    border: 1px solid var(--extra-light-color);
+    padding: 8px;
+  }
+
+  &__calendar {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: grid;
+    grid-template-areas: 'space hours'
+                         'minutes markers';
+  }
+
+  &__hours {
+    display: grid;
+    grid-area: hours;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 18px;
+    grid-column-gap: 12px;
+    justify-items: center;
+  }
+
+  &__space {
+    grid-area: space;
+  }
+
+  &__minutes {
+    display: grid;
+    grid-template-columns: 40px;
+    grid-area: minutes;
+    gap: 12px;
+  }
+
+  &__markers {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-area: markers;
+    gap: 12px;
+  }
+
+  &__hour {
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  &__minute {
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  &__marker {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    background-color: grey;
+
+    &_busy {
+      background-color: @color_busy;
+    }
+
+    &_online {
+      background-color: @color_online;
+    }
+  }
+}

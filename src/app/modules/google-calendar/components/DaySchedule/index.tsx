@@ -1,23 +1,36 @@
 import './style.less';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import block from 'bem-cn';
-import { createDayTimeLine, TDayTimeLine, isBusyTime } from 'app/helpers';
+import { createDayTimeLine, formatDate, isBusyTime, TDayTimeLine } from 'app/helpers';
 import { useSelector } from 'react-redux';
 import { selectBusyTimeList } from 'app/modules/google-calendar/selectors';
 import { IGoogleCalendarBusyItem } from 'app/modules/google-calendar/models';
 
 const b = block('day-schedule');
 
-type TProps = {
-    date: string;
-}
-
 const now = new Date();
-const dayTimeLine: TDayTimeLine = createDayTimeLine(now);
 
-export const DaySchedule: React.FC<TProps> = ({ date }) => {
+export const DaySchedule: React.FC = () => {
     const busyTime = useSelector(selectBusyTimeList);
+    const [day, setDay] = useState<Date>(now);
+    const [dayTimeLine, setDayTimeLine] = useState<TDayTimeLine>(createDayTimeLine(now));
+
+    const handleNextDay = () => {
+        setDay(prevState => {
+            return new Date(new Date().setDate(prevState.getDate() + 1));
+        });
+    }
+
+    const handlePrevDay = () => {
+        setDay(prevState => {
+            return new Date(new Date().setDate(prevState.getDate() - 1));
+        });
+    }
+
+    useEffect(() => {
+        setDayTimeLine(createDayTimeLine(day))
+    }, [day]);
 
     const isBusy = useCallback((date: Date, busyTime: IGoogleCalendarBusyItem[]) => {
         return isBusyTime(date, busyTime);
@@ -25,11 +38,11 @@ export const DaySchedule: React.FC<TProps> = ({ date }) => {
 
     return <div className={b()}>
         <div className={b('controls')}>
-            <button className={b('control', { prev: true })}>◀</button>
+            <button className={b('control', { prev: true })} onClick={handlePrevDay}>◀</button>
             <div className={b('title')}>
-                {date}
+                {formatDate(day.toISOString())}
             </div>
-            <button className={b('control', { next: true })}>▶</button>
+            <button className={b('control', { next: true })} onClick={handleNextDay}>▶</button>
         </div>
         <div className={b('content')}>
             <div className={b('calendar')}>

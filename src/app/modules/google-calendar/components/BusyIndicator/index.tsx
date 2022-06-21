@@ -9,7 +9,7 @@ import { getBusyTime, GOOGLE_CALENDAR_MODULE } from 'app/modules/google-calendar
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { TRootState } from 'app/store';
-import { getFirstAndLastMonthDays, formatDate, isBusyTime } from 'app/helpers';
+import { getFirstAndLastMonthDays, isBusyTime } from 'app/helpers';
 import { selectBusyTimeList } from 'app/modules/google-calendar/selectors';
 import { type IGoogleCalendarBusyItem } from 'app/modules/google-calendar/models';
 import { Popup } from 'app/components/Popup';
@@ -58,7 +58,7 @@ export const BusyIndicator = () => {
             </div>
         </RequestWrapper>
         <Popup targetNode={targetNodeRef.current}>
-            <DaySchedule date={formatDate(now.toISOString())}/>
+            <DaySchedule/>
         </Popup>
     </div>
 }

@@ -19,4 +19,4 @@ jobs:
       - name: StyleLint check
         run: npm run stylelint-check
       - name: Build
-        run: npm build
+        run: npm run build

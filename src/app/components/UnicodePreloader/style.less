@@ -1,47 +1,5 @@
+@import "~src/styles/mixins.less";
+
 .unicode-preloader {
-  position: relative;
-  border: none;
-  width: 20px;
-  height: 20px;
-  display: grid;
-  place-items: center;
-  transition: color 3ms ease-in-out;
-
-  &::after {
-    position: absolute;
-    content: '';
-    animation: unicode-braille-dots 0.5s linear infinite;
-  }
-}
-
-@keyframes unicode-braille-dots {
-  0% {
-    content: '⠋';
-    color: red;
-  }
-
-  25% {
-    content: '⠏';
-    color: green;
-  }
-
-  45% {
-    content: '⠦';
-    color: blue;
-  }
-
-  65% {
-    content: '⠴';
-    color: magenta;
-  }
-
-  85% {
-    content: '⠼';
-    color: cyan;
-  }
-
-  100% {
-    content: '⠙';
-    color: brown;
-  }
+  .loader();
 }

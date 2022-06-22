@@ -1,4 +1,4 @@
-import '../styles/main.less';
+import 'src/styles/main.less';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -9,6 +9,7 @@ import { createAppStore } from 'app/store';
 
 (() => {
     const root = document.querySelector('#root');
+    const splash = document.querySelector('#splash');
 
     if (!root) {
         return;
@@ -17,9 +18,16 @@ import { createAppStore } from 'app/store';
     const reactRoot = createRoot(root);
     ReduxStoreService.reduxStore = createAppStore();
 
-    reactRoot.render(
-        <Provider store={ReduxStoreService.reduxStore}>
-            <App/>
-        </Provider>
-    );
+    new Promise(resolve => {
+        reactRoot.render(
+            <Provider store={ReduxStoreService.reduxStore}>
+                <App/>
+            </Provider>
+        );
+
+        resolve(null);
+    }).then(() => {
+        console.log(splash);
+        splash?.remove();
+    })
 })();

@@ -1,6 +1,9 @@
+// @ts-nocheck
+
 import { Configuration } from 'webpack';
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlWebpackPartialsPlugin from 'html-webpack-partials-plugin'
 import DotenvWebpackPlugin from 'dotenv-webpack';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -11,7 +14,8 @@ const PATH_LIST = {
     APP: path.resolve(__dirname, 'src', 'app'),
     INDEX: path.resolve(__dirname, 'src', 'app', 'index.tsx'),
     BUILD: path.resolve(__dirname, 'build'),
-    TEMPLATE: path.resolve(__dirname, 'src', 'index.html')
+    TEMPLATE: path.resolve(__dirname, 'src', 'index.html'),
+    SPLASH: path.resolve(__dirname, 'src', 'splash.html')
 };
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -83,7 +87,6 @@ const webpackConfig: Configuration = {
             }
         ]
     },
-    // @ts-ignore
     optimization,
     plugins: [
         ...stylePlugins,
@@ -96,6 +99,10 @@ const webpackConfig: Configuration = {
             failOnError: true,
             allowAsyncCycles: false,
             cwd: process.cwd()
+        }),
+
+        new HtmlWebpackPartialsPlugin({
+            path: PATH_LIST.SPLASH
         })
     ]
 }

@@ -52,14 +52,16 @@ export const Logger = () => {
 
     return <div className={b({ 'no-action': pointer < 0 })}>
         {pointer >= 0 &&
-            <div className={b('flex-item')}>
-                <pre className={b('pre')}>
-                    {[...actionsList][pointer]}
-                </pre>
-            </div>
+            <>
+                <div className={b('flex-item')}>
+                    <pre className={b('pre')}>
+                        {[...actionsList][pointer]}
+                    </pre>
+                </div>
+                <div className={b('flex-item')}>
+                    <UnicodePreloader/>
+                </div>
+            </>
         }
-        <div className={b('flex-item')}>
-            <UnicodePreloader/>
-        </div>
     </div>
 }

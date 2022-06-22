@@ -9,8 +9,8 @@
     "analyze": "cross-env NODE_ENV=production NODE_MODE=analyze webpack --mode=production --progress",
     "eslint-fix": "eslint \"src/**/*.{j,t}s{,x}\" --fix",
     "eslint-check": "eslint \"src/**/*.{j,t}s{,x}\"",
-    "stylelint-check": "stylelint \"src/**/*.scss\"",
-    "stylelint-fix": "stylelint \"src/**/*.scss\" --fix",
+    "stylelint-check": "stylelint \"src/**/*.less\"",
+    "stylelint-fix": "stylelint \"src/**/*.less\" --fix",
     "prepare-hooks": "husky install && npx husky set .husky/pre-commit \"npx lint-staged\""
   },
   "lint-staged": {
@@ -56,6 +56,7 @@
     "less-loader": "^11.0.0",
     "mini-css-extract-plugin": "^2.6.0",
     "postcss": "^8.4.14",
+    "postcss-less": "^6.0.0",
     "postcss-loader": "^7.0.0",
     "postcss-preset-env": "^7.7.1",
     "style-loader": "^3.3.1",

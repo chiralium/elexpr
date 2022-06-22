@@ -1,0 +1,22 @@
+name: frontend
+on: [ push ]
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 17.x ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Staring Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install
+        run: npm install
+      - name: ESLint check
+        run: npm run eslint-check
+      - name: StyleLint check
+        run: npm run stylelint-check
+      - name: Build
+        run: npm build
